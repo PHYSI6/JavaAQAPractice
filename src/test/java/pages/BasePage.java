@@ -1,0 +1,19 @@
+package pages;
+
+import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Attachment;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
+
+public abstract class BasePage {
+    public boolean pageIsOpened(){
+        return getPageIdentifier().isDisplayed();
+    }
+    protected abstract WebElement getPageIdentifier();
+
+    @Attachment(value = "Screenshot", type = "image/png", fileExtension = "png")
+    public byte[] takeScreenshot() {
+        return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
+    }
+}
