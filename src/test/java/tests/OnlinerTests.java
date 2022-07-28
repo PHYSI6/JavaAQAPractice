@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.OnlinerMainPage;
-import pages.OnlinerProductPage;
 
 @DisplayName("Onliner Tests")
 public class OnlinerTests extends BaseTest{

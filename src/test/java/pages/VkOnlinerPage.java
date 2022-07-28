@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 
 import static com.codeborne.selenide.Selenide.$;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class VkOnlinerPage extends BasePage{
     private final SelenideElement pageName = $(".page_name");

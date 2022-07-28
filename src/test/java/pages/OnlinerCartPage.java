@@ -7,8 +7,6 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 
 import static com.codeborne.selenide.Selenide.$;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OnlinerCartPage extends BasePage {
     private final SelenideElement title = $(".cart-form__title");
