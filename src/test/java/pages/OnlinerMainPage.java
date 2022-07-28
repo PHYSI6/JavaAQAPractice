@@ -23,21 +23,21 @@ public class OnlinerMainPage extends BasePage {
     private final SelenideElement firstProductTitle = $(".product__title > a");
     private final SelenideElement cartIcon = $("a.auth-bar__item");
     private final SelenideElement vkLink = $(".footer-style__social-button_vk");
+    private final SelenideElement newsLayer = $(".b-news-layer");
+    private final SelenideElement navigationItem = $(".b-main-navigation__item");
     private final String END_POINT = "/";
 
     @Step("Open page by url: " + AppConfig.baseUrl + END_POINT)
     public OnlinerMainPage open(){
         Selenide.open(AppConfig.baseUrl + END_POINT);
-        assertTrue(pageIsOpened());
+        checkPageIsOpened();
 
         return this;
     }
 
-    public boolean pageIsOpened(){return searchField.isDisplayed();}
-
     @Override
     protected WebElement getPageIdentifier() {
-        return searchField;
+        return newsLayer;
     }
 
     @Step("Click cart icon")
@@ -67,7 +67,6 @@ public class OnlinerMainPage extends BasePage {
     @Step("Checking that the name of the first product in the search result matches the search data")
     public OnlinerMainPage checkFirstProductTitle(String productName){
         firstProductTitle.should(visible, Duration.ofSeconds(5));
-        takeScreenshot();
         firstProductTitle.shouldHave(text(productName));
 
         return this;
@@ -78,5 +77,25 @@ public class OnlinerMainPage extends BasePage {
         vkLink.click();
 
         return new VkOnlinerPage();
+    }
+
+    @Step("Click navigation item")
+    public OnlinerCatalogPage clickNavigationItem(){
+        navigationItem.click();
+
+        return new OnlinerCatalogPage();
+    }
+
+
+
+    @Step("Click on first product in the list")
+    public OnlinerProductPage clickFirstProduct(){
+        firstProductTitle.click();
+
+         return new OnlinerProductPage();
+    }
+
+    public String getFirstProductTitle(){
+        return firstProductTitle.getText();
     }
 }

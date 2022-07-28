@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import pages.OnlinerMainPage;
+import pages.OnlinerProductPage;
 
 @DisplayName("Onliner Tests")
 public class OnlinerTests extends BaseTest{
@@ -30,7 +31,7 @@ public class OnlinerTests extends BaseTest{
        onlinerMainPage
                .open()
                .clickCartIcon()
-               .checkIfPageOpen();
+               .checkPageIsOpened();
     }
 
     @DisplayName("VK link test")
@@ -41,5 +42,29 @@ public class OnlinerTests extends BaseTest{
                 .open()
                 .clickVkIcon()
                 .checkIfVkPageOpen();
+    }
+
+    @DisplayName("Onliner main icon test")
+    @Owner("Daniil Borisevich")
+    @Test
+    public void mainIconTest() {
+        onlinerMainPage
+                .open()
+                .clickNavigationItem()
+                .clickOnlinerIcon()
+                .checkPageIsOpened();
+    }
+
+    @DisplayName("Product navigation test")
+    @Owner("Daniil Borisevich")
+    @ParameterizedTest
+    @ValueSource(strings = {"Macbook Pro", "Apple Watch"})
+    public void productNavigationTest(String productName) {
+        String productFullName = onlinerMainPage
+                .open()
+                .clickSearchField()
+                .inputTextSearchField(productName).getFirstProductTitle();
+
+        onlinerMainPage.clickFirstProduct().checkIfOpenedCorrectProduct(productFullName);
     }
 }

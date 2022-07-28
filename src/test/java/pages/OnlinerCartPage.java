@@ -17,20 +17,12 @@ public class OnlinerCartPage extends BasePage {
     @Step("Open page by url: " + AppConfig.cartUrl + END_POINT)
     public OnlinerCartPage open(){
         Selenide.open(AppConfig.cartUrl + END_POINT);
-        assertTrue(pageIsOpened());
+        checkPageIsOpened();
 
         return this;
     }
     @Override
     protected WebElement getPageIdentifier() {
         return title;
-    }
-
-    @Step("Check if page is opened")
-    public OnlinerCartPage checkIfPageOpen(){
-        takeScreenshot();
-        assertTrue(pageIsOpened());
-        assertEquals("Корзина", title.getText(), "Was opened wrong page!");
-        return this;
     }
 }
