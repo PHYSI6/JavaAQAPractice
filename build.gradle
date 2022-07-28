@@ -22,12 +22,23 @@ dependencies {
             'io.qameta.allure:allure-junit5:2.18.1',
             'io.qameta.allure:allure-commandline:2.18.1',
             'io.qameta.allure:allure-assertj:2.18.1',
-
+            'io.rest-assured:rest-assured:5.1.1',
+            'io.qameta.allure:allure-rest-assured:2.18.1',
+            'io.rest-assured:json-schema-validator:5.1.1'
     )
+
+    implementation ('com.github.javafaker:javafaker:1.0.2') { exclude module: 'snakeyaml' }
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.30'
+
     testRuntimeOnly(
             'org.junit.jupiter:junit-jupiter-engine:5.8.2',
             'org.aspectj:aspectjweaver:1.9.9.1'
     )
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
 test {
