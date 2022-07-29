@@ -5,6 +5,7 @@ import config.AppConfig;
 import io.qameta.allure.Owner;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
@@ -21,7 +22,9 @@ public class ApiTests {
     private static final RequestSpecification REQ_SPEQ =
             new RequestSpecBuilder()
                     .setBaseUri(AppConfig.ApiUrl)
+                    .setBasePath("/api")
                     .setContentType(ContentType.JSON)
+                    .log(LogDetail.ALL)
                     .build();
 
     @BeforeAll
@@ -33,10 +36,8 @@ public class ApiTests {
     public void getUserTest(){
         given()
                 .spec(REQ_SPEQ)
-                .basePath("/api/users/2")
-                .when().get()
+                .when().get("/users/2")
                 .then()
-                .log().all()
                 .statusCode(200)
                 .assertThat().body(matchesJsonSchemaInClasspath("jsonSchemas/userGetSchema.json"));
     }
@@ -47,10 +48,8 @@ public class ApiTests {
     public void getNonExistentUserTest(){
         given()
                 .spec(REQ_SPEQ)
-                .basePath("/api/users/23")
-                .when().get()
+                .when().get("/users/23")
                 .then()
-                .log().all()
                 .statusCode(404);
     }
 
@@ -60,10 +59,8 @@ public class ApiTests {
     public void getListOfUsers(){
         given()
                 .spec(REQ_SPEQ)
-                .basePath("/api/users?page=2")
-                .when().get()
+                .when().get("/users?page=2")
                 .then()
-                .log().all()
                 .statusCode(200)
                 .assertThat().body(matchesJsonSchemaInClasspath("jsonSchemas/usersGetSchema.json"));
     }
@@ -78,11 +75,9 @@ public class ApiTests {
 
         given()
                 .spec(REQ_SPEQ)
-                .basePath("/api/users")
                 .body(user)
-                .when().post()
+                .when().post("/users")
                 .then()
-                .log().all()
                 .statusCode(201)
                 .assertThat().body(matchesJsonSchemaInClasspath("jsonSchemas/userCreateResponseSchema.json"));
     }
@@ -97,11 +92,9 @@ public class ApiTests {
 
         given()
                 .spec(REQ_SPEQ)
-                .basePath("/api/users/2")
                 .body(user)
-                .when().put()
+                .when().put("/users/2")
                 .then()
-                .log().all()
                 .statusCode(200)
                 .assertThat().body(matchesJsonSchemaInClasspath("jsonSchemas/userUpdateSchema.json"));
     }
@@ -116,11 +109,9 @@ public class ApiTests {
 
         given()
                 .spec(REQ_SPEQ)
-                .basePath("/api/users/2")
                 .body(user)
-                .when().patch()
+                .when().patch("/users/2")
                 .then()
-                .log().all()
                 .statusCode(200)
                 .assertThat().body(matchesJsonSchemaInClasspath("jsonSchemas/userUpdateSchema.json"));
     }
@@ -135,11 +126,9 @@ public class ApiTests {
 
         given()
                 .spec(REQ_SPEQ)
-                .basePath("/api/users/2")
                 .body(user)
-                .when().delete()
+                .when().delete("/users/2")
                 .then()
-                .log().all()
                 .statusCode(204);
     }
 
@@ -153,11 +142,9 @@ public class ApiTests {
 
         given()
                 .spec(REQ_SPEQ)
-                .basePath("/api/register")
                 .body(user)
-                .when().post()
+                .when().post("/register")
                 .then()
-                .log().all()
                 .statusCode(200)
                 .assertThat().body(matchesJsonSchemaInClasspath("jsonSchemas/registrationSuccessSchema.json"));
     }
@@ -170,11 +157,9 @@ public class ApiTests {
 
         given()
                 .spec(REQ_SPEQ)
-                .basePath("/api/register")
                 .body(user)
-                .when().post()
+                .when().post("/register")
                 .then()
-                .log().all()
                 .statusCode(400)
                 .assertThat().body(matchesJsonSchemaInClasspath("jsonSchemas/registrationErrorSchema.json"));
     }
