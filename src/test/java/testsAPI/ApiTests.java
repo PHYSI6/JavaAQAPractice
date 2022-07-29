@@ -1,31 +1,22 @@
 package testsAPI;
 
 import com.github.javafaker.Faker;
-import config.AppConfig;
 import io.qameta.allure.Owner;
 import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
+import models.UserRegResult;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pojos.User;
+import models.User;
+import models.UserReg;
 
 import static helpers.CustomApiListener.withCustomTemplates;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static specs.Specs.REQ_SPEQ;
 
 @DisplayName("API tests reqres.in")
 public class ApiTests {
-    private static final RequestSpecification REQ_SPEQ =
-            new RequestSpecBuilder()
-                    .setBaseUri(AppConfig.ApiUrl)
-                    .setBasePath("/api")
-                    .setContentType(ContentType.JSON)
-                    .log(LogDetail.ALL)
-                    .build();
 
     @BeforeAll
     public static void setFilter(){ RestAssured.filters(withCustomTemplates()); }
@@ -137,7 +128,7 @@ public class ApiTests {
     @Owner("Daniil Borisevich")
     @Test
     public void registerSuccessful(){
-        User user = User.builder().email("eve.holt@reqres.in")
+        UserReg user = UserReg.builder().email("eve.holt@reqres.in")
                 .password("pistol").build();
 
         given()
@@ -146,14 +137,14 @@ public class ApiTests {
                 .when().post("/register")
                 .then()
                 .statusCode(200)
-                .assertThat().body(matchesJsonSchemaInClasspath("jsonSchemas/registrationSuccessSchema.json"));
+                .extract().as(UserRegResult.class);
     }
 
     @DisplayName("Non-success user registration")
     @Owner("Daniil Borisevich")
     @Test
     public void registerNonSuccessful(){
-        User user = User.builder().email("sydney@fife").build();
+        UserReg user = UserReg.builder().email("sydney@fife").build();
 
         given()
                 .spec(REQ_SPEQ)
