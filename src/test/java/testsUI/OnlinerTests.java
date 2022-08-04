@@ -23,37 +23,6 @@ public class OnlinerTests extends BaseTest{
                 .checkFirstProductTitle(productName);
     }
 
-    @DisplayName("Cart test")
-    @Owner("Daniil Borisevich")
-    @Test
-    public void cartCheck() {
-       onlinerMainPage
-               .open()
-               .clickCartIcon()
-               .checkPageIsOpened();
-    }
-
-    @DisplayName("VK link test")
-    @Owner("Daniil Borisevich")
-    @Test
-    public void vkLinkTest() {
-        onlinerMainPage
-                .open()
-                .clickVkIcon()
-                .checkIfVkPageOpen();
-    }
-
-    @DisplayName("Onliner main icon test")
-    @Owner("Daniil Borisevich")
-    @Test
-    public void mainIconTest() {
-        onlinerMainPage
-                .open()
-                .clickNavigationItem()
-                .clickOnlinerIcon()
-                .checkPageIsOpened();
-    }
-
     @DisplayName("Product navigation test")
     @Owner("Daniil Borisevich")
     @ParameterizedTest
