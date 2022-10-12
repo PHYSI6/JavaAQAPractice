@@ -1,4 +1,4 @@
-package testsUI;
+package baseTests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
@@ -7,13 +7,12 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-public class BaseTest {
+public class BaseTestUi {
     @BeforeEach
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
-        //Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
     }
 
     @AfterEach
@@ -22,5 +21,4 @@ public class BaseTest {
         Selenide.closeWindow();
         Selenide.closeWebDriver();
     }
-
 }
