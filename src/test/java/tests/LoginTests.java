@@ -15,9 +15,11 @@ public class LoginTests {
     public void loginWithCorrectDataTest() throws InterruptedException {
         loginPage
                 .open()
+                .verifyLoginPageIsOpen()
                 .inputUsername(AppConfig.getProperty("USERNAME"))
                 .inputPassword(AppConfig.getProperty("PASSWORD"))
-                .clickLoginButton();
+                .clickLoginButton()
+                .verifyHomePageIsOpen();
 
         Thread.sleep(4000);
     }

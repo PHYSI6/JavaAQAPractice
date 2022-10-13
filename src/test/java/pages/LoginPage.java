@@ -29,7 +29,7 @@ public class LoginPage extends BasePage{
     }
     @Step("Verify LogIn page is open")
     public LoginPage verifyLoginPageIsOpen(){
-        Assertions.assertTrue(checkPageIsOpened());
+        checkPageIsOpened();
 
         return this;
     }
