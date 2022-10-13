@@ -1,11 +1,9 @@
 package pages;
 
-import com.codeborne.selenide.AssertionMode;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import config.AppConfig;
 import io.qameta.allure.Step;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;

@@ -19,7 +19,10 @@ public class LoginTests {
                 .inputUsername(AppConfig.getProperty("USERNAME"))
                 .inputPassword(AppConfig.getProperty("PASSWORD"))
                 .clickLoginButton()
-                .verifyHomePageIsOpen();
+                .verifyHomePageIsOpen()
+                .clickProfileIcon()
+                .clickProfileButton()
+                .verifyProfilePageIsOpen();
 
         Thread.sleep(4000);
     }
