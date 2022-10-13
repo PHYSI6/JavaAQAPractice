@@ -1,9 +1,11 @@
 package pages;
 
+import com.codeborne.selenide.AssertionMode;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import config.AppConfig;
 import io.qameta.allure.Step;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -22,6 +24,12 @@ public class LoginPage extends BasePage{
     @Step("Open LogIn page")
     public LoginPage open(){
         Selenide.open(AppConfig.getProperty("BASE_URL") + END_POINT);
+
+        return this;
+    }
+    @Step("Verify LogIn page is open")
+    public LoginPage verifyLoginPageIsOpen(){
+        Assertions.assertTrue(checkPageIsOpened());
 
         return this;
     }
